@@ -5,3 +5,10 @@ from .Helaba import HelabaReader
 from .UBS import UBSReader
 from .MorganStanley import MorganStanleyReader
 from .BNP import BNPReader
+from .Vontobel import VontobelReader
+from .DekaBank import DekaBankReader
+from .GoldmanSachs import GoldmanSachsReader
+from .Citi import CitiBankReader
+from .Hypo import HypoBankReader
+from .HSBC import HSBCReader
+from .SG import SGReader

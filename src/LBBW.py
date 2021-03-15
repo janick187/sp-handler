@@ -5,7 +5,33 @@ from .ApiSheetClient import ApiSheetClient
 
 class LBBWReader:
 
-    def __init__(self):
+    def __init__(self, DDV_Mapping):
+
+        self.EUSIPA_Mapping = {
+            "1100 Uncapped Capital Protection": [],
+            "1120 Capped Captial Protected": [],
+            "1130 Capital Protection with Knock-Out": [],
+            "1140 Capital protection with Coupon": ['Fremdwährungs-Festzins-Anleihen','Fremdwährungs-Geldmakrt-Floater', 'Fremdwährungs-Stufenzins-Anleihen'],
+            "1199 Miscellaneous Capital Protection": [],
+            "1200 Discount Certificates": ['Discount-Zertifikat'],
+            "1220 Reverse Convertibles": ["Aktien-Anleihe"],
+            "1230 Barrier Reverse Convertibles": [],
+            "1260 Express Certificates": ['Deep-Express-Zertifikat', 'Deep-Express-Zertifikat plus', 'Memory-Express-Zertifikat plus', 'Performance-Deep-Express-Zertifikat'],
+            "1299 Miscellaneous Yield Enhancement": [],
+            "1300 Tracker Certificates": ['Index-Anleihe'],
+            "1310 Outperformance Certificates": [],
+            "1320 Bonus Certificates": ['Bonus-Zertifikat', 'Capped-Bonus-Zertifikat'],
+            "1399 Miscellaneous Participation": ['Flex-Index-Anleihen mit Barriere'],
+            "2100 Warrants": [],
+            "2199 Miscellaneous Leverage without Knock-Out": [],
+            "2200 Knock-Out Warrants": [],
+            "2210 Mini-Futures": [],
+            "2299 Miscellaneous Leverage with Knock-Out": [],
+            "2300 Constant Leverage Certificate": [],
+            "2399 Miscellaneous Leverage with Knock-Out": [],
+            "1340 Twin-Win Certificates": []
+        }
+
         self.client = ApiSheetClient("New Issuance", "LBBW")
 
         finaldict = {}
@@ -17,7 +43,7 @@ class LBBWReader:
 
         print(finaldict)
 
-        self.client.updateFile(finaldict)
+        self.client.updateFile(finaldict, DDV_Mapping, self.EUSIPA_Mapping)
 
     '''
     def updateFile(entry):
@@ -61,7 +87,11 @@ class LBBWReader:
         for x in newProducts:
             if not any(x[0] in sl for sl in oldProducts):
                 if not x[1] in count_dict.keys():
-                    count_dict[x[1]] = 1
+                    count_dict[x[1]] = {}
+                    count_dict[x[1]]['amount'] = 1
+                    count_dict[x[1]]['ISINs'] = [x[0]]
+                    # product type and then we have the number, so lets do product type as key and then another nested dict with number and examples --> and here at examples we put in some random IDs
                 else:
-                    count_dict[x[1]] = count_dict[x[1]] + 1
+                    count_dict[x[1]]['amount'] = count_dict[x[1]]['amount'] + 1
+                    count_dict[x[1]]['ISINs'].append(x[0])
         return count_dict
