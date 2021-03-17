@@ -22,16 +22,18 @@ if __name__ == '__main__':
         "2399 Weitere Prodokute mit konstantem Hebel": ["2399 Miscellaneous Constant Leverage Products"]
     }
 
-    #DZBankReader(DDV_Mapping)
-    #LBBWReader(DDV_Mapping)
-    #HelabaReader()
-    #UBSReader(DDV_Mapping)
-    #MorganStanleyReader(DDV_Mapping)
-    #BNPReader(DDV_Mapping)
-    #VontobelReader(DDV_Mapping)
-    #DekaBankReader(DDV_Mapping)
+
+
+    ## DZBankReader(DDV_Mapping)
+    ## LBBWReader(DDV_Mapping)
+    HelabaReader()
+    ## UBSReader(DDV_Mapping)
+    ## MorganStanleyReader(DDV_Mapping)
+    ## BNPReader(DDV_Mapping)
+    ## VontobelReader(DDV_Mapping)
+    ## DekaBankReader(DDV_Mapping)
     #GoldmanSachsReader()
-    #CitiBankReader(DDV_Mapping)
-    #HypoBankReader(DDV_Mapping)
-    #HSBCReader(DDV_Mapping)
-    SGReader(DDV_Mapping)
+    ## CitiBankReader(DDV_Mapping)
+    ## HypoBankReader(DDV_Mapping)
+    ### HSBCReader(DDV_Mapping)
+    ## SGReader(DDV_Mapping)
