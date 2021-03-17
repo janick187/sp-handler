@@ -14,7 +14,7 @@ class MorganStanleyReader:
             "1130 Capital Protection with Knock-Out": [],
             "1140 Capital protection with Coupon": [],
             "1199 Miscellaneous Capital Protection": [],
-            "1200 Discount Certificates": ["Discount Classic", "Discount Optionsschein Short", 'Discount-Optionsschein'],
+            "1200 Discount Certificates": ["Discount Classic", "Discount Optionsschein Short", 'Discount-Optionsschein', 'Discount-Zertifikat'],
             "1220 Reverse Convertibles": ['Aktienanleihe Classic', 'Aktienanleihe Protect'],
             "1230 Barrier Reverse Convertibles": [],
             "1260 Express Certificates": ['Express Classic', 'Express Relax', 'Index Plus', 'Memory Relax Express'],
@@ -39,7 +39,7 @@ class MorganStanleyReader:
         finaldict = {}
         finaldict["date"] = date.today().strftime('%Y-%m-%d')
 
-        for category in ['Hebelprodukte']:
+        for category in ['Hebelprodukte', 'Zertifikate']:
             resultdict = self.compare(category)
             finaldict[category] = resultdict
 

@@ -40,16 +40,18 @@ class BNPReader:
         finaldict = {}
         finaldict["date"] = date.today().strftime('%Y-%m-%d')
 
-        for category in ['Optionsscheine','Zertifikate','Faktorzertifikate']:
+        for category in ['Optionsscheine','Zertifikate','Faktorzertifikate', 'KnockOuts']:
             resultdict = self.compare(category)
             finaldict[category] = resultdict
 
         FZ = finaldict['Faktorzertifikate']
         OS = finaldict['Optionsscheine']
+        KO = finaldict['KnockOuts']
         finaldict.pop('Faktorzertifikate')
         finaldict.pop('Optionsscheine')
+        finaldict.pop('KnockOuts')
 
-        finaldict['Hebelprodukte'] = dict(chain(FZ.items(), OS.items()))
+        finaldict['Hebelprodukte'] = dict(chain(FZ.items(), OS.items(), KO.items()))
 
         print(finaldict)
 
@@ -80,11 +82,12 @@ class BNPReader:
 
     def convertToCSV(self, fname):
         # convert to CSV
+
         df = pd.read_excel("/Users/janickspirig/PycharmProjects/IsuanceDataService/sp-handler/data/BNP/{}.xlsx".format(fname))
         df.to_csv("/Users/janickspirig/PycharmProjects/IsuanceDataService/sp-handler/data/BNP/{}.csv".format(fname), sep=",")
 
     def compare(self, category):
-        yesterday = (date.today() - timedelta(days=3)).strftime('%Y-%m-%d')
+        yesterday = (date.today() - timedelta(days=1)).strftime('%Y-%m-%d')
         today = date.today().strftime('%Y-%m-%d')
         #today = date.today().strftime('%Y-%m-%d')
 

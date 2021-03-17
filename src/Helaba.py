@@ -57,7 +57,7 @@ class HelabaReader:
         return products
 
     def compare(self):
-        yesterday = (date.today() - timedelta(days=3)).strftime('%d-%m-%Y')
+        yesterday = (date.today() - timedelta(days=1)).strftime('%d-%m-%Y')
         today = date.today().strftime('%d-%m-%Y')
 
         oldProducts = self.readData("Neuemissionen", yesterday)

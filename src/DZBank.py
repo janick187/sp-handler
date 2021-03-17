@@ -78,7 +78,7 @@ class DZBankReader:
 
     def compare(self, category):
 
-        yesterday = (date.today() - timedelta(days=3)).strftime('%Y-%m-%d')
+        yesterday = (date.today() - timedelta(days=1)).strftime('%Y-%m-%d')
         today = date.today().strftime('%Y-%m-%d')
         oldProducts = self.readData(yesterday, category)
         newProducts = self.readData(today, category)

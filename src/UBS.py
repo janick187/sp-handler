@@ -16,7 +16,7 @@ class UBSReader:
             "1200 Discount Certificates": ['Discount-Zertifikat'],
             "1220 Reverse Convertibles": ['Reverse Convertible'],
             "1230 Barrier Reverse Convertibles": ["BRC Callable", 'BRC Coupon at Risk','BRC Early Redemption','BRC Standard','BRC Trigger','BRC Participation', 'BRC Floating Coupon'],
-            "1260 Express Certificates": ['Express-Zertifikat'],
+            "1260 Express Certificates": ['Express-Zertifikat', "Fix Kupon Express Zertifikat"],
             "1299 Miscellaneous Yield Enhancement": ['Weitere Renditeoptimierungs-Zertifikat'],
             "1300 Tracker Certificates": ['Tracker-Zertifikat'],
             "1310 Outperformance Certificates": [],
@@ -24,35 +24,36 @@ class UBSReader:
             "1330 Outperformance Bonus Certificates": ['Bonus-Outperformance-Zertifikat'],
             "1340 Twin-Win Certificates": ["Twin-Win-Zertifikat"],
             "1399 Miscellaneous Participation": [],
-            "2100 Warrants": ["Warrant"],
+            "2100 Warrants": ["Warrant", "Open End Turbo Optionsschein", "Turbo Optionsschein", "Standard Optionsschein", "X-Open End Turbo Optionsschein", "X-Turbo Optionsschein"],
             "2110 Spread Warrants": ['Spread Warrant'],
             "2199 Miscellaneous Leverage without Knock-Out": [],
             "2200 Knock-Out Warrants": ['Warrant mit Knock-Out'],
-            "2210 Mini-Futures": ["Mini-Future"],
+            "2210 Mini-Futures": ["Mini-Future", "Mini Future"],
             "2299 Miscellaneous Leverage with Knock-Out": [],
-            "2300 Constant Leverage Certificate": ['Constant Leverage'],
+            "2300 Constant Leverage Certificate": ['Constant Leverage', "Faktor Zertifikat"],
             "2399 Miscellaneous Constant Leverage Products": ["Weitere Hebelprodukte"]
         }
 
-        self.client = ApiSheetClient("New Issuance", "UBS")
 
-        finaldict = {}
-        finaldict["date"] = date.today().strftime('%Y-%m-%d')
-        finaldict['volumen'] = {}
+        for country in ["CH", "DE"]:
+            self.client = ApiSheetClient("New Issuance", f"UBS_{country}")
+            finaldict = {}
+            finaldict["date"] = date.today().strftime('%Y-%m-%d')
+            finaldict['volumen'] = {}
 
-        for category in ['Zertifikate', 'Hebelprodukte']:
-            resultdict, volumen = self.compare(category)
-            finaldict[category] = resultdict
-            if volumen != 0:
-                finaldict['volumen'][category] = volumen
+            for category in ['Zertifikate', 'Hebelprodukte']:
+                resultdict, volumen = self.compare(category, country)
+                finaldict[category] = resultdict
 
-        print(finaldict)
-        self.client.updateFile(finaldict, DDV_Mapping, self.EUSIPA_Mapping)
+                if volumen != 0:
+                    finaldict['volumen'][category] = volumen
 
-    def readData(self, category, date):
+            self.client.updateFile(finaldict, DDV_Mapping, self.EUSIPA_Mapping)
+
+    def readData(self, category, date, country):
         products = []
-        with open("/Users/janickspirig/PycharmProjects/IsuanceDataService/sp-handler/data/UBS/UBS-Keyinvest-Produkte_{}_{}.csv".format(
-                date, category), "r",
+        with open("/Users/janickspirig/PycharmProjects/IsuanceDataService/sp-handler/data/UBS_{}/UBS-Keyinvest-Produkte_{}_{}.csv".format(
+                country, date, category), "r",
                   encoding='ISO-8859-1') as f:
             reader = csv.reader(f, delimiter=",")
             next(reader)
@@ -66,12 +67,12 @@ class UBSReader:
                     products.append([product_id, product_type])
         return products
 
-    def compare(self, category):
+    def compare(self, category, country):
         yesterday = (date.today() - timedelta(days=1)).strftime('%Y-%m-%d')
         today = date.today().strftime('%Y-%m-%d')
 
-        oldProducts = self.readData(category, yesterday)
-        newProducts = self.readData(category, today)
+        oldProducts = self.readData(category, yesterday, country)
+        newProducts = self.readData(category, today, country)
 
         count_dict = {}
         volumen = len(newProducts)
