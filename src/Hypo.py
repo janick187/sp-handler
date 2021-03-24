@@ -76,7 +76,7 @@ class HypoBankReader:
 
 
 
-        self.client = ApiSheetClient("New Issuance", "Hypo")
+        self.client = ApiSheetClient("Issuance Data Collection", "Hypo")
 
         finaldict = {}
         finaldict["date"] = date.today().strftime('%Y-%m-%d')

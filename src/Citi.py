@@ -38,7 +38,7 @@ class CitiBankReader:
             'Zertifikate': ['Discount','Bonus','Capped Bonus','Reverse Bonus','Capped Reverse Bonus','Index Tracker','Kapitalschutzzertifikate','Outperformance Zertifikate','Sprint Zertifikate']
         }
 
-        self.client = ApiSheetClient("New Issuance", "Citi")
+        self.client = ApiSheetClient("Issuance Data Collection", "Citi")
 
         finaldict = {}
         finaldict["date"] = date.today().strftime('%Y-%m-%d')

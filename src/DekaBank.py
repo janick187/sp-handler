@@ -42,7 +42,7 @@ class DekaBankReader():
         #and now gernerate the file which is needed as comparison for tomorrow ofc
         self.generateFile(products)
 
-        self.client = ApiSheetClient("New Issuance", "DekaBank")
+        self.client = ApiSheetClient("Issuance Data Collection", "DekaBank")
 
         finaldict = {}
         finaldict["date"] = date.today().strftime('%Y-%m-%d')

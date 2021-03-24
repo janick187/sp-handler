@@ -34,7 +34,7 @@ class HSBCReader:
             "1340 Twin-Win Certificates": []
         }
 
-        self.client = ApiSheetClient("New Issuance", "HSBC")
+        self.client = ApiSheetClient("Issuance Data Collection", "HSBC")
 
         finaldict = {}
         finaldict["date"] = date.today().strftime('%Y-%m-%d')

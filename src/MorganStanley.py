@@ -34,12 +34,12 @@ class MorganStanleyReader:
             "1340 Twin-Win Certificates": []
         }
 
-        self.client = ApiSheetClient("New Issuance", "Morgan Stanley")
+        self.client = ApiSheetClient("Issuance Data Collection", "Morgan Stanley")
 
         finaldict = {}
         finaldict["date"] = date.today().strftime('%Y-%m-%d')
 
-        for category in ['Hebelprodukte', 'Zertifikate']:
+        for category in ['Hebelprodukte']:
             resultdict = self.compare(category)
             finaldict[category] = resultdict
 

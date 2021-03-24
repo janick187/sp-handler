@@ -37,7 +37,7 @@ class VontobelReader:
             'CH': {
                 'Zertifikate': [
                     'Callable Multi Defender VONTIS',
-                    'Capped VONCERTs Plus',
+                    #'Capped VONCERTs Plus',
                     'Defender VONCORES',
                     'Defender VONTIS',
                     # 'Double Coupon Multi Defender VONTIS',
@@ -49,11 +49,13 @@ class VontobelReader:
                     'Multi VONTIS with low exercise price',
                     'Strategic Certificate',
                     'Structured Product',
+                    'VONCERTS',
                     'VONCERTS Open End',
-                    # 'VONCORES',
+                    'VONCORES',
                     'VONTIS'
                 ],
                 'Hebelprodukte': [
+                    'Factor Certificates',
                     'Sprinters Open End',
                     #'Sprinter-Warrants',
                     'Vontobel Mini Futures',
@@ -63,29 +65,34 @@ class VontobelReader:
                 'Zertifikate': [
                     'Aktienanleihen',
                     'Aktienanleihen mit Barriere',
-                    'Aktienanleihen Pro mit Barriere',
+                    #'Aktienanleihen Pro mit Barriere',
                     #'Bonus Cap-Zertifikate',
-                    'Bonus-Zertifikate',
+                    # 'Bonus-Zertifikate',
                     'Discount-Zertifikate',
-                    'Fixkupon Express Airbag Anleihen',
-                    'Fixkupon Express Airbag Zertifikate',
+                    #'Fixkupon Express Airbag Anleihen',
+                    #'Fixkupon Express Airbag Zertifikate',
                     'Fixkupon Express Anleihen mit Barriere',
                     'Fixkupon Express Anleihen Pro mit Barriere',
                     'Fixkupon Express Zertifikate mit Barriere',
                     'Fixkupon Express Zertifikate Pro mit Barriere',
+                    'Fixkupon Multi Express Airbag Anleihen (Worst-Of)',
+                    #'Fixkupon Multi Express Airbag Anleihen mit Barriere (Worst-Of)',
                     'Fixkupon Multi Express Anleihen mit Barriere (Worst-Of)',
-                    'Indexanleihen',
-                    'Indexanleihen mit Barriere',
+                    'Fixkupon Multi Express Zertifikate mit Barriere (Worst-Of)',
+                    #'Indexanleihen',
+                    #'Indexanleihen mit Barriere',
                     'Memory Express Airbag Anleihen',
                     'Memory Express Airbag Zertifikate',
                     'Memory Express Anleihen Pro mit Barriere',
                     'Memory Express Zertifikate mit Barriere',
                     'Memory Express Zertifikate Pro mit Barriere',
-                    'Multi Aktienanleihen (Worst-Of)',
+                    'Memory Multi Express Zertifikate mit Barriere (Worst-Of)',
+                    #'Multi Aktienanleihen (Worst-Of)',
                     'Multi Aktienanleihen mit Barriere (Worst-Of)',
                     'Multi Memory Express Anleihen Pro mit Barriere (Worst-Of)',
+                    'Partizipationszertifikate'
                     #'Reverse Bonus Cap-Zertifikate',
-                    'Sprint-Zertifikate'
+                    #'Sprint-Zertifikate'
                     ],
                 'Hebelprodukte': [
                     'Faktor-Zertifikate',
@@ -99,7 +106,7 @@ class VontobelReader:
         }
 
         for country in ['DE', 'CH']:
-            self.client = ApiSheetClient("New Issuance", f"Vontobel_{country}")
+            self.client = ApiSheetClient("Issuance Data Collection", f"Vontobel_{country}")
             finaldict = {}
             finaldict["date"] = date.today().strftime('%Y-%m-%d')
             for category in ['Zertifikate', 'Hebelprodukte']:
@@ -131,9 +138,6 @@ class VontobelReader:
                         try:
                             product_type = self.categories[country][category][product_counter]
                         except IndexError:
-                            print(category)
-                            print(product_counter)
-                            print(line)
                             product_type = "NotAllocated"
                         products.append([product_id, product_type])
                     else:
@@ -144,7 +148,7 @@ class VontobelReader:
         return products
 
     def compare(self, category, country):
-        yesterday = (date.today() - timedelta(days=3)).strftime('%Y%m%d')
+        yesterday = (date.today() - timedelta(days=1)).strftime('%Y%m%d')
         today = date.today().strftime('%Y%m%d')
         oldProducts = self.readData(yesterday, category, country)
         newProducts = self.readData(today, category, country)

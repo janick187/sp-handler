@@ -33,7 +33,7 @@ class DZBankReader:
         }
 
 
-        self.client = ApiSheetClient("New Issuance", "DZBank")
+        self.client = ApiSheetClient("Issuance Data Collection", "DZBank")
 
         finaldict = {}
         finaldict["date"] = date.today().strftime('%Y-%m-%d')

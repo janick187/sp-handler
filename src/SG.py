@@ -111,7 +111,7 @@ class SGReader:
             }
         }
 
-        self.client = ApiSheetClient("New Issuance", "SG")
+        self.client = ApiSheetClient("Issuance Data Collection", "SG")
 
         finaldict = {}
         finaldict["date"] = date.today().strftime('%Y-%m-%d')

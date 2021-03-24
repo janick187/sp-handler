@@ -35,7 +35,7 @@ class BNPReader:
             "1340 Twin-Win Certificates": []
         }
 
-        self.client = ApiSheetClient("New Issuance", "BNP")
+        self.client = ApiSheetClient("Issuance Data Collection", "BNP")
 
         finaldict = {}
         finaldict["date"] = date.today().strftime('%Y-%m-%d')

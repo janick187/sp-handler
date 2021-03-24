@@ -8,7 +8,7 @@ class HelabaReader:
 
         # Mapping can not be done as product type is not included in export-file
 
-        self.client = ApiSheetClient("New Issuance", "Helaba")
+        self.client = ApiSheetClient("Issuance Data Collection", "Helaba")
 
         finaldict = {}
         finaldict["date"] = date.today().strftime('%Y-%m-%d')

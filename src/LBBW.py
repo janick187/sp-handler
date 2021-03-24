@@ -32,7 +32,7 @@ class LBBWReader:
             "1340 Twin-Win Certificates": []
         }
 
-        self.client = ApiSheetClient("New Issuance", "LBBW")
+        self.client = ApiSheetClient("Issuance Data Collection", "LBBW")
 
         finaldict = {}
         finaldict["date"] = date.today().strftime('%Y-%m-%d')

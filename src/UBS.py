@@ -36,7 +36,7 @@ class UBSReader:
 
 
         for country in ["CH", "DE"]:
-            self.client = ApiSheetClient("New Issuance", f"UBS_{country}")
+            self.client = ApiSheetClient("Issuance Data Collection", f"UBS_{country}")
             finaldict = {}
             finaldict["date"] = date.today().strftime('%Y-%m-%d')
             finaldict['volumen'] = {}
